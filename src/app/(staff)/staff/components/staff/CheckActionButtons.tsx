@@ -1,10 +1,11 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleAttendanceAction } from "@/lib/attendance";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, LogOut } from "lucide-react";
 import { sendAttendanceNotification } from "@/lib/sendEmail";
+import { getUserDistanceFromStore } from "@/lib/location";
 
 type AttendanceLog = {
   checkedIn: boolean;
@@ -29,30 +30,50 @@ export default function CheckActionButtons({
   loading,
 }: Props) {
   const [actionLoading, setActionLoading] = useState(false);
+  const [isWithinRange, setIsWithinRange] = useState(false);
+  const [locationChecked, setLocationChecked] = useState(false);
 
   const today = new Date();
-  const dateKey = today.toISOString().split("T")[0]; // yyyy-mm-dd
+  const dateKey = today.toISOString().split("T")[0];
+
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const distance = getUserDistanceFromStore(latitude, longitude);
+        setIsWithinRange(distance <= 2); // ✅ Only allow check-in within 2 meters
+        setLocationChecked(true);
+      },
+      (error) => {
+        console.error("Location error:", error);
+        setLocationChecked(true);
+      }
+    );
+  }, []);
+
   const handleAction = async (type: "check-in" | "check-out") => {
     if (!userId) return;
     setActionLoading(true);
 
-    const result = await handleAttendanceAction(userId, type, name); // Replace with real name
+    const result = await handleAttendanceAction(userId, type, name);
     const ref = doc(db, `attendance/${userId}/logs/${dateKey}`);
     const snap = await getDoc(ref);
     if (snap.exists()) setLog(snap.data() as AttendanceLog);
 
-    // 🔥 Call EmailJS on the client side
     if (result) {
       await sendAttendanceNotification(
         result.name,
         result.action,
         result.time,
-        result.status,
+        result.status
       );
     }
 
     setActionLoading(false);
   };
+
   const baseStyle =
     "w-1/2 font-medium transition-all relative py-6 flex items-center justify-center gap-2";
   const checkInFeedback = log?.checkedIn
@@ -66,7 +87,9 @@ export default function CheckActionButtons({
     <div className="flex w-full items-center justify-between space-x-2">
       <Button
         onClick={() => handleAction("check-in")}
-        disabled={log?.checkedIn || actionLoading || loading}
+        disabled={
+          log?.checkedIn || actionLoading || loading || !isWithinRange || !locationChecked
+        }
         className={`${baseStyle} ${checkInFeedback}`}
         variant="outline"
       >
@@ -75,8 +98,11 @@ export default function CheckActionButtons({
           ? "Checking In..."
           : log?.checkedIn
             ? "Checked In"
-            : "Check In"}
+            : !isWithinRange && locationChecked
+              ? "Not in Range"
+              : "Check In"}
       </Button>
+
       <Button
         onClick={() => handleAction("check-out")}
         variant="outline"
