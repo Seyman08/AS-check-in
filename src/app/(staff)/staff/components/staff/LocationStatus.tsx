@@ -12,7 +12,7 @@ export default function LocationStatus() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        const within = getUserDistanceFromStore(latitude, longitude) <= 5;
+        const within = getUserDistanceFromStore(latitude, longitude) <= 15;
         setIsWithinLocation(within);
       },
       (err) => setLocationError("Location access denied"),
