@@ -43,7 +43,7 @@ export default function CheckActionButtons({
       (position) => {
         const { latitude, longitude } = position.coords;
         const distance = getUserDistanceFromStore(latitude, longitude);
-        setIsWithinRange(distance <= 2); // ✅ Only allow check-in within 2 meters
+        setIsWithinRange(distance <= 15); // ✅ Only allow check-in within 15 meters
         setLocationChecked(true);
       },
       (error) => {
