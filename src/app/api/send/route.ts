@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { resend } from "@/lib/resend";
+// import { resend } from "@/lib/resend"; // commented out Resend
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     //   return NextResponse.json({ error }, { status: 500 });
     // }
 
-    return NextResponse.json(data);
+    return NextResponse.json({ message: "Email sending disabled." }); // ✅ return safe fallback
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
