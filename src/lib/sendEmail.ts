@@ -1,7 +1,7 @@
 // lib/sendEmail.ts
 import emailjs from "@emailjs/browser";
 
-emailjs.init("lLF_1fOuK_WN9Bl3c");
+emailjs.init("vKL5vSZ9wTmC991IF");
 
 export const sendAttendanceNotification = async (
   name: string,
@@ -18,8 +18,8 @@ export const sendAttendanceNotification = async (
 
   try {
     const result = await emailjs.send(
-      "service_7dj1juy",
-      "template_cc6eefa",
+      "service_6blg2ak",
+      "template_3lu95i9",
       templateParams,
     );
     console.log("Email sent:", result.status, result.text);
