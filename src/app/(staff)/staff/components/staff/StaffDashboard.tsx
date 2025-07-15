@@ -44,7 +44,6 @@ export default function StaffDashboard() {
     fetchLog();
   }, [userId, dateKey]);
 
-  // Determine punctuality status and badge props for check-in and check-out
   function getBadgeProps(
     type: "check-in" | "check-out",
     time: any,
@@ -99,9 +98,7 @@ export default function StaffDashboard() {
         <p className="text-muted-foreground text-sm">{today}</p>
         <div className="gap flex items-center justify-between">
           <div>
-            <span className="text-muted-foreground mr-1 text-xs">
-              Check-in:
-            </span>
+            <span className="text-muted-foreground mr-1 text-xs">Check-in:</span>
             {checkInBadge ? (
               <Badge className={checkInBadge.className}>
                 {checkInBadge.icon}
@@ -114,9 +111,7 @@ export default function StaffDashboard() {
             )}
           </div>
           <div>
-            <span className="text-muted-foreground mr-1 text-xs">
-              Check-out:
-            </span>
+            <span className="text-muted-foreground mr-1 text-xs">Check-out:</span>
             {checkOutBadge ? (
               <Badge className={checkOutBadge.className}>
                 {checkOutBadge.icon}
@@ -133,7 +128,8 @@ export default function StaffDashboard() {
 
       <Card>
         <CardContent className="space-y-6 py-6">
-          <LocationStatus />
+          {/* ✅ Fixed line below */}
+          <LocationStatus checkedIn={log?.checkedIn ?? false} />
           {userId && (
             <CheckActionButtons
               name={`${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim()}
@@ -145,6 +141,7 @@ export default function StaffDashboard() {
           )}
         </CardContent>
       </Card>
+
       <div>
         <span>Last Activity</span>
         <div>
