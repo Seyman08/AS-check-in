@@ -19,7 +19,7 @@ export default function LocationStatus({ checkedIn }: Props) {
         const { latitude, longitude } = pos.coords;
         const distance = getUserDistanceFromStore(latitude, longitude);
         console.log("📍 Distance from office:", distance);
-        setIsWithinLocation(distance <= 15); // ← realistic threshold
+        setIsWithinLocation(distance <= 30); // ← realistic threshold
         setLocationChecked(true);
       },
       (err) => {
