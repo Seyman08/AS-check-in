@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, LogOut } from "lucide-react";
 import { sendAttendanceNotification } from "@/lib/sendEmail";
 import { getUserDistanceFromStore } from "@/lib/location";
+import { time } from "console";
+import { stat } from "fs";
 
 type AttendanceLog = {
   checkedIn: boolean;
@@ -49,7 +51,7 @@ export default function CheckActionButtons({
       (error) => {
         console.error("Location error:", error);
         setLocationChecked(true);
-      }
+      },
     );
   }, []);
 
@@ -63,12 +65,15 @@ export default function CheckActionButtons({
     if (snap.exists()) setLog(snap.data() as AttendanceLog);
 
     if (result) {
-      await sendAttendanceNotification(
-        result.name,
-        result.action,
-        result.time,
-        result.status
-      );
+      await fetch("/api/emails", {
+        method: "POST",
+        body: JSON.stringify({
+          name: result.name,
+          action: result.action,
+          time: result.time,
+          status: result.status,
+        }),
+      });
     }
 
     setActionLoading(false);
@@ -88,7 +93,11 @@ export default function CheckActionButtons({
       <Button
         onClick={() => handleAction("check-in")}
         disabled={
-          log?.checkedIn || actionLoading || loading || !isWithinRange || !locationChecked
+          log?.checkedIn ||
+          actionLoading ||
+          loading ||
+          !isWithinRange ||
+          !locationChecked
         }
         className={`${baseStyle} ${checkInFeedback}`}
         variant="outline"

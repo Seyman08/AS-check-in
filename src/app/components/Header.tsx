@@ -27,8 +27,9 @@ export default function Header({ role }: HeaderProps) {
           </div>
         </div>
         <div>
-          {/* <Button>Logout Button</Button> */}
-          <SignOutButton />
+          <Button asChild variant="destructive">
+            <SignOutButton />
+          </Button>
         </div>
       </div>
     </header>

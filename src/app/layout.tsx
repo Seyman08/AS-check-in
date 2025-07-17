@@ -9,16 +9,16 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: siteConfig.seo.icons,
   manifest: siteConfig.seo.manifest,
-  themeColor: [
-    {
-      media: "(prefers-color-scheme: light)",
-      color: siteConfig.seo.themeColor.light,
-    },
-    {
-      media: "(prefers-color-scheme: dark)",
-      color: siteConfig.seo.themeColor.dark,
-    },
-  ],
+  // themeColor: [
+  //   {
+  //     media: "(prefers-color-scheme: light)",
+  //     color: siteConfig.seo.themeColor.light,
+  //   },
+  //   {
+  //     media: "(prefers-color-scheme: dark)",
+  //     color: siteConfig.seo.themeColor.dark,
+  //   },
+  // ],
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
