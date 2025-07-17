@@ -1,8 +1,5 @@
-// export const OFFICE_LAT = 7.3644;
-// export const OFFICE_LNG = 3.85449;
-
-export const OFFICE_LAT = 7.377535; // Example latitude for the office
-export const OFFICE_LNG = 3.94704; // Example longitude for the office
+export const OFFICE_LAT = 7.3644;
+export const OFFICE_LNG = 3.85449;
 
 export function getDistanceInMeters(
   lat1: number,
