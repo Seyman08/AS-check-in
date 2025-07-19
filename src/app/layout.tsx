@@ -60,7 +60,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      frontendApi={process.env.NEXT_PUBLIC_CLERK_FRONTEND_API}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
       <html lang="en">
         <body className={`${fonts.bricolageGrotesque.className} antialiased`}>
           <main>{children}</main>
