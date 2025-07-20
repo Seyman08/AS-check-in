@@ -62,7 +62,7 @@ export default function RootLayout({
   return (
   <ClerkProvider>
       <html lang="en">
-        <body className={${fonts.bricolageGrotesque.className} antialiased}>
+        <body className={`${fonts.bricolageGrotesque.className} antialiased`}>
           <main>{children}</main>
         </body>
       </html>
