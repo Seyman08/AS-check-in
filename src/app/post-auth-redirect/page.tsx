@@ -16,7 +16,7 @@ export default function PostAuthRedirectPage() {
     const role = user?.publicMetadata?.role;
 
     if (role === "admin") {
-      router.replace("/admin/check-in");
+      router.replace("/admin/");
     } else {
       router.replace("/staff/check-in");
     }

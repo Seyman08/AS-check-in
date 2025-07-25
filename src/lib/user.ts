@@ -1,6 +1,5 @@
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
-import { User } from "@clerk/nextjs/server";
 import type { UserResource } from "@clerk/types";
 
 export async function createUserIfNotExists(user: UserResource) {

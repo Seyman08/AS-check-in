@@ -60,12 +60,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-  <ClerkProvider>
+    <ClerkProvider>
       <html lang="en">
         <body className={`${fonts.bricolageGrotesque.className} antialiased`}>
           <main>{children}</main>
         </body>
       </html>
     </ClerkProvider>
-);
+  );
 }

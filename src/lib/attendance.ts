@@ -8,20 +8,6 @@ import {
 import { db } from "./firebase";
 import { getPunctualityStatus } from "./punctuality";
 import { differenceInMinutes, format } from "date-fns";
-import { sendAttendanceNotification } from "./sendEmail";
-// For sending notification
-// const sendAttendanceNotification = async (
-//   name: string,
-//   action: string,
-//   time: string,
-//   status: string,
-// ) => {
-//   await fetch("/api/send", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ name, action, time, status }),
-//   });
-// };
 
 type AttendanceAction = "check-in" | "check-out";
 

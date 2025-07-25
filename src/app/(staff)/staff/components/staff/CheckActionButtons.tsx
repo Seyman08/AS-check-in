@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { handleAttendanceAction } from "@/lib/attendance";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, LogOut } from "lucide-react";
-import { sendAttendanceNotification } from "@/lib/sendEmail";
 import { getUserDistanceFromStore } from "@/lib/location";
 import { time } from "console";
 import { stat } from "fs";
@@ -45,7 +44,7 @@ export default function CheckActionButtons({
       (position) => {
         const { latitude, longitude } = position.coords;
         const distance = getUserDistanceFromStore(latitude, longitude);
-        setIsWithinRange(distance <= 30); // ✅ Only allow check-in within 30 meters
+        setIsWithinRange(distance <= 30); // ✅ Only allow check-in within 30 meterss
         setLocationChecked(true);
       },
       (error) => {

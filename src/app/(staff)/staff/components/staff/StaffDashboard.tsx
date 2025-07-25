@@ -90,7 +90,7 @@ export default function StaffDashboard() {
       : null;
 
   return (
-    <div className="mx-auto max-w-xl space-y-6 p-6">
+    <div className="mx-auto space-y-6 p-6 md:w-4xl">
       <header className="space-y-2">
         <h1 className="text-2xl leading-tight font-semibold">
           Good day, {user?.firstName ?? "Staff"}
@@ -98,7 +98,9 @@ export default function StaffDashboard() {
         <p className="text-muted-foreground text-sm">{today}</p>
         <div className="gap flex items-center justify-between">
           <div>
-            <span className="text-muted-foreground mr-1 text-xs">Check-in:</span>
+            <span className="text-muted-foreground mr-1 text-xs">
+              Check-in:
+            </span>
             {checkInBadge ? (
               <Badge className={checkInBadge.className}>
                 {checkInBadge.icon}
@@ -111,7 +113,9 @@ export default function StaffDashboard() {
             )}
           </div>
           <div>
-            <span className="text-muted-foreground mr-1 text-xs">Check-out:</span>
+            <span className="text-muted-foreground mr-1 text-xs">
+              Check-out:
+            </span>
             {checkOutBadge ? (
               <Badge className={checkOutBadge.className}>
                 {checkOutBadge.icon}
